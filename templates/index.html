@@ -13,7 +13,7 @@
             copyText.setSelectionRange(0, 99999);
 
             document.execCommand("copy");
-}
+        }
     </script>
 
     <title>URL Shortener</title>
@@ -28,13 +28,18 @@
         <input type="submit" value="Shorten"/>
     </form>
 
-    <form style="margin-top: 10%;">
+    <form style="margin-top: 10%; display: {{ display }};">
+
         <input type="text" id="short_url" value="{{ short_url }}"
                placeholder="Here will be your short URL" style="border-radius: 20px 0px 0px 20px;
                text-align: center; color: #ff4282;"/>
+
         <input type="submit" onclick="copyUrl()" value="Copy"
                style="border-radius: 0px 20px 20px 0px;"/>
-        <h3>Redirects to: {{ long_url }}</h3>
+
+        <h3>Redirects to: <img src="https://www.google.com/s2/favicons?domain={{ long_url }}"
+                height="14px" alt="favicon"/> {{ long_url }}</h3>
+
     </form>
 </div>
 
