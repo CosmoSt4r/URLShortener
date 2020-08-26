@@ -11,7 +11,7 @@ def url_shorting():
 
     short_url = ''
     while url_id > 0:
-        short_url += url_map[url_id % 62]
+        short_url += url_map[(url_id % 62) - 1]
         url_id //= 62
     return short_url
 
