@@ -1,6 +1,19 @@
 from app import app
-from database import db
-from flask import render_template, url_for, request, redirect
+from settings import url_map
+from database import db, Url
+from flask import render_template, request, redirect
+
+
+def url_shorting():
+
+    last_url = Url.query.order_by(Url.id)[-1]
+    url_id = last_url.id + 1
+
+    short_url = ''
+    while url_id > 0:
+        short_url += url_map[url_id % 62]
+        url_id //= 62
+    return short_url
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -9,9 +22,12 @@ def index():
         # POST
         try:
             short_url = request.form['short_url']
-            # long_url = take url from database
+            short_url = short_url[short_url.find('/')+1:]
 
-            return render_template('index.html', short_url=short_url, display='block')
+            found_url = Url.query.filter_by(short=short_url).first()
+            long_url = found_url.long
+
+            return render_template('index.html', long_url=long_url, short_url=short_url, display='block')
         except:
             long_url = request.form['long_url']
 
@@ -19,13 +35,23 @@ def index():
                 if "http" not in long_url:
                     long_url = "https://" + long_url
                 if "." not in long_url:
-                    long_url = long_url + ".com/"
+                    long_url = long_url + ".com"
 
-                short_url = long_url[:10]  # # # # #
+                found_url = Url.query.filter_by(long=long_url).first()
+
+                if not found_url:
+                    short_url = url_shorting()
+
+                    new_url = Url(long_url, short_url)
+                    db.session.add(new_url)
+                    db.session.commit()
+
+                    return render_template('index.html', short_url=short_url, long_url=long_url, display='block')
+                else:
+                    return render_template('index.html', short_url=found_url.short, long_url=long_url, display='block')
+
             else:
                 return render_template('index.html', display='none')
-
-            return render_template('index.html', short_url=short_url, long_url=long_url, display='block')
     else:
         # GET
 
@@ -34,7 +60,9 @@ def index():
 
 @app.route("/<url_name>")
 def url(url_name):
-    return redirect(url_for('index'))
+    found_url = Url.query.filter_by(short=url_name).first()
+
+    return redirect(found_url.long)
 
 
 if __name__ == '__main__':
