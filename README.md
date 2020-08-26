@@ -12,7 +12,7 @@ Enter URL and press **"Shorten"**.
 
 _________
 
-![Shorten] https://github.com/CosmoSt4r/URLShortener/blob/master/readme/Shorten.png?raw=true)
+![Shorten](https://github.com/CosmoSt4r/URLShortener/blob/master/readme/Shorten.png?raw=true)
 
 _________
 
