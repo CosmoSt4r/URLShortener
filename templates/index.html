@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-      type="text/css"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
+    <script>
+        function copyUrl() {
+            var copyText = document.getElementById("short_url");
+
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+
+            document.execCommand("copy");
+}
+    </script>
+
     <title>URL Shortener</title>
-  </head>
+</head>
 
-  <body>
-    <div class="box">
-      <h2>Make your URL shorter</h2>
-      <form>
-        <input type="text" placeholder="Enter your URL..."/>
+<body>
+<div class="box">
+    <h2>Make your URL shorter</h2>
+
+    <form method="post">
+        <input type="text" name="long_url" placeholder="Enter your URL..."/>
         <input type="submit" value="Shorten"/>
-      </form>
-      <h3></h3>
-    </div>
-  </body>
+    </form>
 
+    <form style="margin-top: 10%;">
+        <input type="text" id="short_url" value="{{ short_url }}"
+               placeholder="Here will be your short URL" style="border-radius: 20px 0px 0px 20px;
+               text-align: center; color: #ff4282;"/>
+        <input type="submit" onclick="copyUrl()" value="Copy"
+               style="border-radius: 0px 20px 20px 0px;"/>
+    </form>
+</div>
+
+
+</body>
 </html>
