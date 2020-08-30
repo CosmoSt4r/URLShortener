@@ -26,7 +26,7 @@ Press **"Copy"** to copy shorted URL to clipboard.
 
 ### Clone
 
-Clone this repo to your local machine using `https://github.com/CosmoSt4r/URLShortener`
+Clone this repo to your local machine using `git clone https://github.com/CosmoSt4r/URLShortener`
 
 ### Required packages
 
