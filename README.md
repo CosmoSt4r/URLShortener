@@ -4,7 +4,7 @@ __________
 
 Simple design with just **one button**.
 
-![Homepage](https://github.com/CosmoSt4r/URLShotrener/blob/master/readme/Homepage.png?raw=true)
+![Homepage](https://github.com/CosmoSt4r/URLShortener/blob/master/readme/Homepage.png?raw=true)
 
 __________
 
